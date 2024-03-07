@@ -1,0 +1,20 @@
+{
+  "name": "batch-ecdsa-secp256r1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:nullity00/batch-ecdsa-secp256r1.git",
+  "author": "nullity00 <00nullity@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "ethers": "^6.11.1",
+    "ffjavascript": "^0.2.63",
+    "snarkjs": "^0.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.25",
+    "chai": "^5.1.0",
+    "circom_tester": "^0.0.20",
+    "mocha": "^10.3.0"
+  }
+}
