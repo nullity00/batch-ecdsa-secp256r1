@@ -1,14 +1,11 @@
 pragma circom 2.1.5;
 
-include "../node_modules/circomlib/circuits/multiplexer.circom";
 include "../node_modules/circomlib/circuits/poseidon.circom";
-include "./circom-ecdsa-p256/circuits/p256_func.circom";
 include "./circom-ecdsa-p256/circuits/ecdsa.circom";
-include "./batch-ecdsa/circuits/bigint_ext.circom";
-include "./circom-pairing/circuits/bigint.circom";
-include "./circom-pairing/circuits/bigint_func.circom";
+include "./circom-ecdsa-p256/circuits/circom-pairing/circuits/bigint.circom";
 include "p256_lc.circom";
 include "p256_ops.circom";
+include "utils.circom";
 
 template P256BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
     // Assertions
@@ -216,3 +213,5 @@ template P256BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
     SumsEqual.in <== num_equal[k-1] - 2*k;
     result <== SumsEqual.out;
 }
+
+component main = P256BatchECDSAVerifyNoPubkeyCheck(43, 6, 2);

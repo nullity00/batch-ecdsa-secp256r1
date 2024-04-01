@@ -1,10 +1,6 @@
 pragma circom 2.1.5;
 
-include "../node_modules/circomlib/circuits/bitify.circom";
-include "../node_modules/circomlib/circuits/multiplexer.circom";
-include "./circom-pairing/circuits/bigint_func.circom";
-include "./circom-ecdsa-p256/circuits/p256_func.circom";
-include "./circom-ecdsa-p256/circuits/p256.circom";
+include "./circom-ecdsa-p256/circuits/circom-pairing/circuits/bigint_func.circom";
 include "p256_ops.circom";
 
 /* Computes a linear combination of ECC points

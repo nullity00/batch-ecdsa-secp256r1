@@ -1,9 +1,7 @@
 pragma circom 2.1.5;
 
-include "../node_modules/circomlib/circuits/comparators.circom";
 include "./circom-ecdsa-p256/circuits/p256.circom";
-include "./circom-ecdsa-p256/circuits/p256_func.circom";
-include "./circom-pairing/circuits/curve.circom";
+include "./circom-ecdsa-p256/circuits/circom-pairing/circuits/curve.circom";
 
 template P256PointOnCurve(n, k){
   signal input x[k];
