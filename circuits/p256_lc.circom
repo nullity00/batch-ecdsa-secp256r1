@@ -1,3 +1,12 @@
+pragma circom 2.1.5;
+
+include "../node_modules/circomlib/circuits/bitify.circom";
+include "../node_modules/circomlib/circuits/multiplexer.circom";
+include "./circom-pairing/circuits/bigint_func.circom";
+include "./circom-ecdsa-p256/circuits/p256_func.circom";
+include "./circom-ecdsa-p256/circuits/p256.circom";
+include "p256_ops.circom";
+
 /* Computes a linear combination of ECC points
  * coeffs[b][k] an array of coefficients for the linear combination
  * points[b][2][k] an array of ECC points
@@ -13,8 +22,8 @@ template P256LinearCombination(n, k, b) {
     // Variables
     var w = 4;
     var window_size = 1 << w;
-    var num_coordinates = div_ceil(n * k, w);
-    var order[100] = get_p256_order(n, k);
+    var num_coordinates = div_ceil(n * k, w); // circom-pairing/bigint_func.circom
+    var order[100] = get_p256_order(n, k); // circom-ecdsa-p256/p256_func.circom
     var dummyHolder[2][100] = get_dummy_point(n, k); // circom-ecdsa-p256/p256_func.circom
     var dummy[2][k];
     for (var i = 0; i < k; i++) dummy[0][i] = dummyHolder[0][i];

@@ -1,16 +1,16 @@
-/// This file implements the ECDSA verification algorithm along with public key generation (xG)
-
 pragma circom 2.1.5;
 
 include "../node_modules/circomlib/circuits/multiplexer.circom";
 include "../node_modules/circomlib/circuits/poseidon.circom";
+include "./circom-ecdsa-p256/circuits/p256_func.circom";
+include "./circom-ecdsa-p256/circuits/ecdsa.circom";
+include "./batch-ecdsa/circuits/bigint_ext.circom";
+include "./circom-pairing/circuits/bigint.circom";
+include "./circom-pairing/circuits/bigint_func.circom";
+include "p256_lc.circom";
+include "p256_ops.circom";
 
-// include "p256.circom";
-// include "ecdsa_func.circom";
-// include "p256_func.circom";
-// include "bigint.circom";
-
-template BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
+template P256BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
     // Assertions
     assert(k >= 2);
     assert(k <= 100);
@@ -25,7 +25,7 @@ template BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
 
     // Variables
     var p[100] = get_p256_prime(n, k); // pse/circom-ecdsa-p256/p256_func.circom
-    var order[100] = get_p256_order(n, k);
+    var order[100] = get_p256_order(n, k); // pse/circom-ecdsa-p256/p256_func.circom
     var sinv_comp[b][100];
     signal sinv[b][k];
 
@@ -178,7 +178,7 @@ template BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
     }
 
     // \sum_i t^i (R_i - (r_i s_i^{-1}) Q_i)
-    component linear_combiner = Secp256k1LinearCombination(n, k, 2 * b);
+    component linear_combiner = P256LinearCombination(n, k, 2 * b);
     for (var batch_idx = 0; batch_idx < b; batch_idx++) {
         for (var reg_idx = 0; reg_idx < k; reg_idx++) {
             // - t^i * (r_i s_i^{-1}) * Q_i

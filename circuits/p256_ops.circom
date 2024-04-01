@@ -1,4 +1,20 @@
+pragma circom 2.1.5;
 
+include "../node_modules/circomlib/circuits/comparators.circom";
+include "./circom-ecdsa-p256/circuits/p256.circom";
+include "./circom-ecdsa-p256/circuits/p256_func.circom";
+include "./circom-pairing/circuits/curve.circom";
+
+template P256PointOnCurve(n, k){
+  signal input x[k];
+  signal input y[k];
+
+  var params[4][k] = get_p256_params(); // circom-ecdsa-p256/p256_func.circom
+
+  component poc = PointOnCurve(n, k, params[0], params[1], params[2]); // circom-pairing/curve.circom
+  poc.in[0] <== x;
+  poc.in[1] <== y;
+}
 
 template P256IsEqual(n, k) {
     signal input a[2][k];
@@ -37,7 +53,7 @@ template P256DoubleRepeat(n, k, w) {
     signal output out[2][k];
     component doubler[w];
 
-    doubler[0] = P256Double(n, k);
+    doubler[0] = P256Double(n, k); // circom-ecdsa-p256/p256.circom
     for (var j = 0; j < k; j++) {
         doubler[0].in[0][j] <== in[0][j];
         doubler[0].in[1][j] <== in[1][j];
@@ -47,7 +63,7 @@ template P256DoubleRepeat(n, k, w) {
     component point_on_curve[w];
     for (var i = 1; i < w; i++) {
         doubler[i] = P256Double(n, k);
-        point_on_curve[i] = Secp256k1PointOnCurve(); // TODO: Implement using circom-pairing/curve.circom
+        point_on_curve[i] = P256PointOnCurve(n, k);
         for(var j = 0; j < k; j++){
             point_on_curve[i].x[j] <== doubler[i-1].out[0][j];
             point_on_curve[i].y[j] <== doubler[i-1].out[1][j];
