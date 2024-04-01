@@ -1,0 +1,9 @@
+[submodule "circuits/circom-ecdsa-p256"]
+	path = circuits/circom-ecdsa-p256
+	url = git@github.com:privacy-scaling-explorations/circom-ecdsa-p256.git
+[submodule "circuits/circom-pairing"]
+	path = circuits/circom-pairing
+	url = git@github.com:SleepingShell/circom-pairing.git
+[submodule "circuits/batch-ecdsa"]
+	path = circuits/batch-ecdsa
+	url = git@github.com:puma314/batch-ecdsa.git
