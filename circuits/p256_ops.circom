@@ -35,10 +35,14 @@ template P256IsEqual(n, k) {
     acc[1] <== acc[0] + are_registers_equal[0][1].out;
     acc[2] <== acc[1] + are_registers_equal[0][2].out;
     acc[3] <== acc[2] + are_registers_equal[0][3].out;
-    acc[4] <== acc[3] + are_registers_equal[1][0].out;
-    acc[5] <== acc[4] + are_registers_equal[1][1].out;
-    acc[6] <== acc[5] + are_registers_equal[1][2].out;
-    acc[7] <== acc[6] + are_registers_equal[1][3].out;
+    acc[4] <== acc[3] + are_registers_equal[0][4].out;
+    acc[5] <== acc[4] + are_registers_equal[0][5].out;
+    acc[6] <== acc[5] + are_registers_equal[1][0].out;
+    acc[7] <== acc[6] + are_registers_equal[1][1].out;
+    acc[8] <== acc[7] + are_registers_equal[1][2].out;
+    acc[9] <== acc[8] + are_registers_equal[1][3].out;
+    acc[10] <== acc[9] + are_registers_equal[1][4].out;
+    acc[11] <== acc[10] + are_registers_equal[1][5].out;
 
     all_registers_equal.in[0] <== acc[2*k-1];
     all_registers_equal.in[1] <== 2 * k;
