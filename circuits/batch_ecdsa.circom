@@ -23,7 +23,7 @@ template P256BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
     // Variables
     var p[100] = get_p256_prime(n, k); // pse/circom-ecdsa-p256/p256_func.circom
     var order[100] = get_p256_order(n, k); // pse/circom-ecdsa-p256/p256_func.circom
-    var sinv_comp[b][100];
+    var sinv_comp[b][50];
     signal sinv[b][k];
 
     // Use poseidon hash to get a random t for summations
@@ -214,4 +214,4 @@ template P256BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
     result <== SumsEqual.out;
 }
 
-component main = P256BatchECDSAVerifyNoPubkeyCheck(43, 6, 1);
+// component main = P256BatchECDSAVerifyNoPubkeyCheck(43, 6, 1);
