@@ -25,16 +25,21 @@ template P256LinearCombination(n, k, b) {
     for (var i = 0; i < k; i++) dummy[0][i] = dummyHolder[0][i];
     for (var i = 0; i < k; i++) dummy[1][i] = dummyHolder[1][i];
 
+    // @TODO: Find dummy point for P256
     var dummy2[2][k];
     dummy2[0][0] = 7302857710491818226;
     dummy2[0][1] = 13090816099812022951;
     dummy2[0][2] = 9346046874093976485;
     dummy2[0][3] = 16390367348011359441;
+    dummy2[0][4] = 0;
+    dummy2[0][5] = 0;
 
     dummy2[1][0] = 3244438850366025804;
     dummy2[1][1] = 9434351362574893148;
     dummy2[1][2] = 7254847369327388665;
     dummy2[1][3] = 7867482507585870065;
+    dummy2[1][4] = 0;
+    dummy2[1][5] = 0;
 
     // Generating lookup table for points[0], ..., points[b-1] between multiples 0 and 2^w-1
     signal lookup_table[b][window_size][2][k];
