@@ -1,55 +1,59 @@
 import path from "path";
-import { p256 } from "@noble/curves/p256";
-import { expect, assert } from 'chai';
-import _ from 'lodash';
-import { generate_sig, bigint_to_array, uint8Array_to_bigint, bigint_to_uint8Array, mod, invert } from "../scripts/utils";
+import { expect } from "chai";
+import _ from "lodash";
+import { generate_sig } from "../scripts/utils";
 
-const circom_tester = require('circom_tester');
+const circom_tester = require("circom_tester");
 const wasm_tester = circom_tester.wasm;
 
-const _0n = BigInt(0);
-const _1n = BigInt(1);
-const _2n = BigInt(2);
-const _3n = BigInt(3);
-const _8n = BigInt(8);
+const randomMsgHash = [
+  [
+    378014510781, 2635680598305, 1122110594975, 5768456357407, 8223520554262,
+    1821163896477,
+  ],
+  [
+    190242646973, 3351673368361, 4147977096671, 6968815966824, 4023907958308,
+    2160301479018,
+  ],
+];
 
-describe('ECDSABatchVerifyNoPubkeyCheck', function () {
-  this.timeout(1000 * 1000);
+describe("P256BatchECDSAVerifyNoPubkeyCheck", () => {
+  // this.timeout(1000 * 1000);
 
   let circuit: any;
+  var x = generate_sig(2);
   before(async function () {
-    circuit = await wasm_tester(path.join(__dirname, 'circuits', 'test_batch_ecdsa_verify_4.circom'));
+    circuit = await wasm_tester(
+      path.join(__dirname, "circuits", "test_batch_ecdsa_verify_2.circom")
+    );
   });
 
   var test_batch_ecdsa_verify = function () {
-    
-      it('testing correct sig', async function () {
-        var x = await generate_sig(4);
-        var res = 1n;
-        let witness = await circuit.calculateWitness({
-          r: x.r,
-          rprime: x.rprime,
-          s: x.s,
-          msghash: x.msghash,
-          pubkey: x.pubkey,
-        });
-        expect(witness[1]).to.equal(res);
-        await circuit.checkConstraints(witness);
+    it("testing correct sig", async function () {
+      var res = 1n;
+      let witness = await circuit.calculateWitness({
+        r: x.r,
+        rprime: x.rprime,
+        s: x.s,
+        msghash: x.msghash,
+        pubkey: x.pubkey,
       });
+      expect(witness[1]).to.equal(res);
+      await circuit.checkConstraints(witness);
+    });
 
-      it('testing incorrect sig', async function () {
-        var x = await generate_sig(4);
-        var res = 0n;
-        let witness = await circuit.calculateWitness({
-          r: x.r,
-          rprime: x.rprime,
-          s: x.s,
-          msghash: x.msghash.map((x: bigint) => x + _1n),
-          pubkey: x.pubkey,
-        });
-        expect(witness[1]).to.equal(res);
-        await circuit.checkConstraints(witness);
+    it("testing incorrect sig", async function () {
+      var res = 0n;
+      let witness = await circuit.calculateWitness({
+        r: x.r,
+        rprime: x.rprime,
+        s: x.s,
+        msghash: randomMsgHash,
+        pubkey: x.pubkey,
       });
+      expect(witness[1]).to.equal(res);
+      await circuit.checkConstraints(witness);
+    });
   };
 
   test_batch_ecdsa_verify();
