@@ -214,4 +214,4 @@ template P256BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
     result <== SumsEqual.out;
 }
 
-component main = P256BatchECDSAVerifyNoPubkeyCheck(43, 6, 2);
+component main = P256BatchECDSAVerifyNoPubkeyCheck(43, 6, 1);
