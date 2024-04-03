@@ -209,9 +209,10 @@ template P256LinearCombination(n, k, b) {
             adders[coord_idx][batch_idx-1] = P256AddUnequal(n, k); // p256.circom
             for (var reg_idx = 0; reg_idx < k; reg_idx++) {
                 for (var x_or_y = 0; x_or_y < 2; x_or_y++) {
-                    adders[coord_idx][batch_idx-1].a[x_or_y][reg_idx] <==
-                        are_points_equal[coord_idx][batch_idx-1].out * (dummy2[x_or_y][reg_idx] - partial[coord_idx][batch_idx-1][x_or_y][reg_idx])
-                        + partial[coord_idx][batch_idx-1][x_or_y][reg_idx];
+                    var aux1 = dummy2[x_or_y][reg_idx] - partial[coord_idx][batch_idx-1][x_or_y][reg_idx];
+                    var aux2 = are_points_equal[coord_idx][batch_idx-1].out * aux1
+                            + partial[coord_idx][batch_idx-1][x_or_y][reg_idx];
+                    adders[coord_idx][batch_idx-1].a[x_or_y][reg_idx] <== aux2;
                     adders[coord_idx][batch_idx-1].b[x_or_y][reg_idx] <==
                         multiplexers[batch_idx][coord_idx][x_or_y].out[reg_idx];
                 }
