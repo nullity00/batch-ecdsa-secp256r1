@@ -213,5 +213,3 @@ template P256BatchECDSAVerifyNoPubkeyCheck(n, k, b) {
     SumsEqual.in <== num_equal[k-1] - 2*k;
     result <== SumsEqual.out;
 }
-
-// component main = P256BatchECDSAVerifyNoPubkeyCheck(43, 6, 1);
