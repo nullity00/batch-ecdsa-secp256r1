@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BATCH_SIZE=2
+BATCH_SIZE=16
 PHASE1=../ptau/powersOfTau28_hez_final_25.ptau
 CIRCUIT_NAME=ecdsa_main
 BUILD_DIR=build

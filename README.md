@@ -14,7 +14,14 @@ This repository provides proof-of-concept implementations of ECDSA operations on
 
 ## Information 
 
-This implementation is losely based on the concept of using [Using Randomizers for Batch Verification of ECDSA Signatures](https://eprint.iacr.org/2012/582.pdf).
+This implementation is based on the concept of [Using Randomizers for Batch Verification of ECDSA Signatures](https://eprint.iacr.org/2012/582.pdf). The verification equation for ECDSA Signatures is 
+
+```math
+
+s^{-1} \cdot z \cdot G + s^{-1} \cdot r \cdot Q = R
+
+```
+
 
 ## Prerequisites
 
@@ -57,21 +64,21 @@ mv powersOfTau28_hez_final_${K_SIZE}.ptau ptau/
 
 ## Benchmarks
 
-All benchmarks were run on an 16-core 3.0GHz, 32G RAM machine (AWS c5.4xlarge instance) using the WASM witness generator with the snarkjs prover.
+All benchmarks were run on an 16-core 3.0GHz, 32G RAM machine (AWS c5.4xlarge instance) with 400G of swap space using the WASM witness generator with the snarkjs prover.
 
 |                                      | verify2 | verify4 | verify8 | verify16  |
 | ------------------------------------ | ------- | ------- | ------- | --------- |
 | Constraints                          | 2.5M    | 3.6M    | 5.7M    | 10.1M     |
 | Circuit compilation                  | 51s     | 75      | 105s    | 180s      |
 | Witness generation                   | 150s    | 221s    | 364s    | 600s      |
-| Trusted setup phase 2 key generation | 238s    | 445s    | 1177s   | ?      |
-| Trusted setup phase 2 contribution   | 215s    | 251s    | 459s    | ?      |
+| Trusted setup phase 2 key generation | 238s    | 445s    | 1177s   | 2459s     |
+| Trusted setup phase 2 contribution   | 215s    | 251s    | 459s    | 864s      |
 | Proving key size                     | 1.41G   | 1.89G   | 3.12G   | ?      |
-| Proving key verification             | 469s    | 718s    | 1588s   | ?      |
+| Proving key verification             | 469s    | 718s    | 1588s   | 2895s     |
 | Proving time                         | 165s    | 283s    | 664s    | ?      |
 | Proof verification time              | 1s      | 2s      | 1s      | ?      |
 
-> Note : Using a C++ witness generator and rapid snark prover, one can speed up the process of proof generation. I haven't been able to do it due to this peculiar [Segmentation Error](https://github.com/iden3/circom/issues/127). 
+> Note : Using a C++ witness generator and rapid snark prover, one can speed up the process of proof generation. I haven't been able to do it due to this peculiar [Segmentation Error](https://github.com/iden3/circom/issues/127).
 
 ## Testing
 
