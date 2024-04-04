@@ -90,7 +90,7 @@ mv powersOfTau28_hez_final_${K_SIZE}.ptau ptau/
 \sum_{i=0}^{b} t_i (R_i - v * Q)  =  \sum_{i=0}^{b} t_i (u * G)
 ```
 
-- `p256_lc.circom` : The algebraic sum is computed using `P256LinearCombination` template which take sin points and coefficients of an algebraic equation. This is achieved by generating a lookup table with points doubled & summed, with all the evaluations aggregated to output an elliptic curve point in the end.
+- `p256_lc.circom` : The algebraic sum is computed using `P256LinearCombination` template which takes in points and coefficients of an algebraic equation. A Linear equation is achieved by generating a lookup table with elliptic curve operations, with all the evaluations aggregated to output an elliptic curve point in the end.
 
 - `p256_ops.circom` : This file contains some of the p256 curve operations used in `p256_lc.circom`
 
@@ -99,8 +99,8 @@ mv powersOfTau28_hez_final_${K_SIZE}.ptau ptau/
 
 All benchmarks were run on an 16-core 3.0GHz, 32G RAM machine (AWS c5.4xlarge instance) with 400G of swap space using the WASM witness generator with the snarkjs prover.
 
-|                                      | verify2 | verify4 | verify8 | verify16  | verify32 |
-| ------------------------------------ | ------- | ------- | ------- | --------- | -------- |
+|                                      | verify2 | verify4 | verify8 | verify16  |
+| ------------------------------------ | ------- | ------- | ------- | --------- |
 | Constraints                          | 2.5M    | 3.6M    | 5.7M    | 10.1M     |
 | Circuit compilation                  | 51s     | 75      | 105s    | 180s      |
 | Witness generation                   | 150s    | 221s    | 364s    | 600s      |
