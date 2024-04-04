@@ -87,7 +87,7 @@ mv powersOfTau28_hez_final_${K_SIZE}.ptau ptau/
 
 - `batch_ecdsa.circom` : This contains `P256BatchECDSAVerifyNoPubkeyCheck(n, k, b)` which takes in `r`, `rprime`, `s`, `msghash` and `pubkey` for `b` batches. The randomizer `t` is then calculated by hashing all the inputs using `Poseidon` hash function. Then we compute `b` powers of `t` . The individual components of the aggregated ECDSA equation is calculated to compute the following and perform an equality check :
 ```math
-\sum_{i=0}^{b} t_i (R_i - v * Q)  and  \sum_{i=0}^{b} t_i (u * G)
+\sum_{i=0}^{b} t_i (R_i - v * Q)  =  \sum_{i=0}^{b} t_i (u * G)
 ```
 
 - `p256_lc.circom` : The algebraic sum is computed using `P256LinearCombination` template which take sin points and coefficients of an algebraic equation. This is achieved by generating a lookup table with points doubled & summed, with all the evaluations aggregated to output an elliptic curve point in the end.
