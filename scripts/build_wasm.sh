@@ -40,7 +40,7 @@ echo "DONE ($((end-start))s)"
 echo "****VERIFYING WITNESS****"
 start=`date +%s`
 cd ..
-snarkjs wtns check "$CIRCUIT_NAME".r1cs witness.wtns
+"$SNARKJS_PATH" wtns check "$CIRCUIT_NAME".r1cs witness.wtns
 end=`date +%s`
 echo "DONE ($((end-start))s)"
 
@@ -79,3 +79,6 @@ start=`date +%s`
 "$NODE_PATH" "$SNARKJS_PATH" groth16 verify vkey.json public.json proof.json -v
 end=`date +%s`
 echo "DONE ($((end-start))s)"
+
+echo "****SIZE OF PROVING KEY****"
+stat -c %s "$CIRCUIT_NAME".zkey | awk '{print $0/1024/1024/1024}'
