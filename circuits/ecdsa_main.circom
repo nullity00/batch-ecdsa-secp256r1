@@ -2,7 +2,7 @@ pragma circom 2.1.5;
 
 include "batch_ecdsa.circom";
 
-component main = P256BatchECDSAVerifyNoPubkeyCheck(43, 6, 2);
+component main  {public [r, rprime, s, msghash, pubkey]}  = P256BatchECDSAVerifyNoPubkeyCheck(43, 6, 2);
 
 // When b = 1 
 // You get this error 
