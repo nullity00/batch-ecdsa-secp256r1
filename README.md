@@ -25,9 +25,16 @@ where `Q` is the public key.
 When aggregating a bunch of signatures, the equation becomes
 ```math
 \sum_{i=0}^{b} R_i = (\sum_{i=0}^{b} u) G + (\sum_{i=0}^{b} v * Q)
-
-where u = h * s^{-1}, v = r * s^{-1}, b = number of signatures
 ```
+where
+```math
+u = h * s^{-1},
+```
+and 
+```math
+v = r * s^{-1}
+```
+`b` = number of signatures
 
 We get randomly chosen zero multipliers `t1`, `t2`, `t3` and so on to verify if the following equality holds :
 
